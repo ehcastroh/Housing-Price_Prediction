@@ -1,15 +1,12 @@
----
-title: "IEOR 142 -- Ames Housing Analysis"
-author: "Paul Grigas"
-date: "November 2017"
-output:
-  html_document: default
-  html_notebook: default
-  pdf_document: default
-  word_document: default
----
+###----------------------------###
+# title: "IEOR 142 Group Project"
+# author: "Elias Casto Hernandez"
+# date: "November 2017"
+# purpose: Perform clean up and convert monthly
+# Ames response variables to Quarterly response(s)
+###----------------------------###
+
 ### Load Libraries and Packages ###
-  
 #install.packages("tidyverse")
 library(tidyverse)
 
@@ -20,11 +17,6 @@ ames <- read.csv("qtr_ames.csv")
 ames$YrSold <- as.factor(ames$YrSold)
 ames$MoSold <- as.factor(ames$MoSold)
 qtr_ames <- as_tibble(ames)
-
-#Find columns with NAs.
-naTF <- sapply(qtr_ames, anyNA)
-amesNaCols <- colnames(qtr_ames[,naTF])
-amesNaCols
 
 # convert monthly prices to quarterly averages
 mean_qa <- function(x, y, m){
