@@ -1,0 +1,238 @@
+###------------------------------------------------------------------###
+# title: "IEOR 142 Group Project -- All time series to quarterly"
+# author: "Darren Fang"
+# date: "November 2017"
+# purpose: Automate time stamp range from various to quarterly
+###------------------------------------------------------------------###
+
+
+## Create Month to Quarter Function ##
+
+Month_to_Quarter <- function(data){
+  store1 = (data[1,1] + data[2,1] + data[3,1])/3
+  store2 = (data[4,1] + data[5,1] + data[6,1])/3
+  store3 = (data[7,1] + data[8,1] + data[9,1])/3
+  store4 = (data[10,1] + data[11,1] + data[12,1])/3
+  store5 = (data[13,1] + data[14,1] + data[15,1])/3
+  store6 = (data[16,1] + data[17,1] + data[18,1])/3
+  store7 = (data[19,1] + data[20,1] + data[21,1])/3
+  store8 = (data[22,1] + data[23,1] + data[24,1])/3
+  store9 = (data[25,1] + data[26,1] + data[27,1])/3
+  store10 = (data[28,1] + data[29,1] + data[30,1])/3
+  store11 = (data[31,1] + data[32,1] + data[33,1])/3
+  store12 = (data[34,1] + data[35,1] + data[36,1])/3
+  store13 = (data[37,1] + data[38,1] + data[39,1])/3
+  store14 = (data[40,1] + data[41,1] + data[42,1])/3
+  store15 = (data[43,1] + data[44,1] + data[45,1])/3
+  store16 = (data[46,1] + data[47,1] + data[48,1])/3
+  store17 = (data[49,1] + data[50,1] + data[51,1])/3
+  store18 = (data[52,1] + data[53,1] + data[54,1])/3
+  store19 = (data[55,1] + data[56,1] + data[57,1])/3
+  store20 = (data[58,1] + data[59,1] + data[60,1])/3
+  
+  df <- data.frame(matrix(ncol = 1, nrow = 20))
+  df[1,1] <- store1
+  df[2,1] <- store2
+  df[3,1] <- store3
+  df[4,1] <- store4
+  df[5,1] <- store5
+  df[6,1] <- store6
+  df[7,1] <- store7
+  df[8,1] <- store8
+  df[9,1] <- store9
+  df[10,1] <- store10
+  df[11,1] <- store11
+  df[12,1] <- store12
+  df[13,1] <- store13
+  df[14,1] <- store14
+  df[15,1] <- store15
+  df[16,1] <- store16
+  df[17,1] <- store17
+  df[18,1] <- store18
+  df[19,1] <- store19
+  df[20,1] <- store20
+  return(df)
+}
+
+## Read Quartly Raw Data ##
+alcoholsalestax <- read.csv("alcohol_sales_tax.csv")
+corporateincometax <- read.csv("corporate_income_tax.csv")
+fuelsalestax <- read.csv("fuel_sales_tax.csv")
+generalsalestax <- read.csv("general_sales_tax.csv")
+indinctax <- read.csv("individual_income_tax.csv")
+proptax <- read.csv("property_taxes.csv")
+tobsalestax <- read.csv("tobacco_sales_tax.csv")
+durincafttax <- read.csv("durable_income_afer_taxes.csv")
+durstockequity <- read.csv("durable_stockholders_equity.csv")
+durtotassets <- read.csv("durable_total_assets.csv")
+durtotlia <- read.csv("durable_total_liabilites.csv")
+nondmanuinc <- read.csv("nondurableManufac_income_after_taxes.csv")
+nondmanustock <- read.csv("nondurableManufact_stockholders_equity.csv")
+nondmanuassets <- read.csv("nondurableManufact_tota_assets.csv")
+nondmanulia <- read.csv("nondurableManufact_total_liabilities.csv")
+homevacrate <- read.csv("homeowner_vacancy_rate.csv")
+homeownrate <- read.csv("homeownership_rate.csv")
+rentalvacrate <- read.csv("rental_vacancy_rate.csv")
+
+## Read in and Change Month Data into Quarter Data ##
+durinvmonth <- read.csv("durable_inventory_monthly.csv")
+durinvmonth <- Month_to_Quarter(durinvmonth)
+colnames(durinvmonth) <- paste0("dur_inv_month")
+durinvsalemonth <- read.csv("durable_inventory-divided-by-sales_monthly.csv")
+durinvsalemonth <- Month_to_Quarter(durinvsalemonth)
+colnames(durinvsalemonth) <- paste0("dur_inv_sale_month")
+dursalemonth <- read.csv("durable_sales_monthly.csv")
+dursalemonth <- Month_to_Quarter(dursalemonth)
+colnames(dursalemonth) <- paste0("dur_sale_month")
+nondinvmonth <- read.csv("nondurable_inventory_monthly.csv")
+nondinvmonth <- Month_to_Quarter(nondinvmonth)
+colnames(nondinvmonth) <- paste0("nond_inv_month")
+nondinvsalemonth <- read.csv("nondurable_inventory-divided-by-sales_monthly.csv")
+nondinvsalemonth <- Month_to_Quarter(nondinvsalemonth)
+colnames(nondinvsalemonth) <- paste0("nond_inv_sale_month")
+nondsalemonth <- read.csv("nondurable_sales_monthly.csv")
+nondsalemonth <- Month_to_Quarter(nondsalemonth)
+colnames(nondsalemonth) <- paste0("nond_sale_month")
+houspermitconstruct <- read.csv("housing_permitted_not-yet-under-constuction.csv")
+houspermitconstruct <- Month_to_Quarter(houspermitconstruct)
+colnames(houspermitconstruct) <- paste0("hous_permit_construct")
+houseunitcomp <- read.csv("housing_units_completed.csv")
+houseunitcomp <- Month_to_Quarter(houseunitcomp)
+colnames(houseunitcomp) <- paste0("house_unit_comp")
+houseunitstart <- read.csv("housing_units_started.csv")
+houseunitstart <- Month_to_Quarter(houseunitstart)
+colnames(houseunitstart) <- paste0("house_unit_start")
+houseunitconstruct <- read.csv("housing_units_under_construction.csv")
+houseunitconstruct <- Month_to_Quarter(houseunitconstruct)
+colnames(houseunitconstruct) <- paste0("house_unit_construct")
+salesmonthlyretail<- read.csv("sales_monthly_retail_and_trade.csv")
+salesmonthlyretail <- Month_to_Quarter(salesmonthlyretail)
+colnames(salesmonthlyretail) <- paste0("sales_monthly_retail")
+neworders <- read.csv("new_orders.csv")
+neworders <- Month_to_Quarter(neworders)
+colnames(neworders) <- paste0("new_orders")
+totalinv <- read.csv("total_inventories.csv")
+totalinv <- Month_to_Quarter(totalinv)
+colnames(totalinv) <- paste0("total_inv")
+unfulfilledorders <- read.csv("unfulfilled_orders.csv")
+unfulfilledorders <- Month_to_Quarter(unfulfilledorders)
+colnames(unfulfilledorders) <- paste0("unfulf_orders")
+valueofship <- read.csv("value_of_shipments.csv")
+valueofship <- Month_to_Quarter(valueofship)
+colnames(valueofship) <- paste0("val_of_ship")
+forsalecomplete <- read.csv("for-sale_completed.csv")
+forsalecomplete <- Month_to_Quarter(forsalecomplete)
+colnames(forsalecomplete) <- paste0("for_sale_comp")
+forsalemonthinv <- read.csv("for-sale_month-inventory.csv")
+forsalemonthinv <- Month_to_Quarter(forsalemonthinv)
+colnames(forsalemonthinv) <- paste0("for_sale_month_inv")
+forsalenystarted <- read.csv("for-sale_not_yet_started.csv")
+forsalenystarted <- Month_to_Quarter(forsalenystarted)
+colnames(forsalenystarted) <- paste0("for_sale_ny_start")
+forsaleunderconstruct <- read.csv("for-sale_under_construction.csv")
+forsaleunderconstruct <- Month_to_Quarter(forsaleunderconstruct)
+colnames(forsaleunderconstruct) <- paste0("for_sale_und_constr")
+soldcompleted <- read.csv("sold_completed.csv")
+soldcompleted <- Month_to_Quarter(soldcompleted)
+colnames(soldcompleted) <- paste0("sold_completed")
+soldnystarted <- read.csv("sold_not_yet_started.csv")
+soldnystarted <- Month_to_Quarter(soldnystarted)
+colnames(soldnystarted) <- paste0("sold_ny_started")
+soldunderconstruct <- read.csv("sold_under_construction.csv")
+soldunderconstruct <- Month_to_Quarter(soldunderconstruct)
+colnames(soldunderconstruct) <- paste0("sold_under_constr")
+invmonthly <- read.csv("inventory_monthly.csv")
+invmonthly<- Month_to_Quarter(invmonthly)
+colnames(invmonthly) <- paste0("inv_monthly")
+invdsalesratio <- read.csv("inventory-divided-by-sales_ratio.csv")
+invdsalesratio <- Month_to_Quarter(invdsalesratio)
+colnames(invdsalesratio) <- paste0("inv_dsales_ratio")
+salesmonthlymanufact <- read.csv("sales_monthly_manufact.csv")
+salesmonthlymanufact <- Month_to_Quarter(salesmonthlymanufact)
+colnames(salesmonthlymanufact) <- paste0("sales_month_manufact")
+exports <- read.csv("exports.csv")
+exports <- Month_to_Quarter(exports)
+colnames(exports) <- paste0("exports")
+imports <- read.csv("imports.csv")
+imports <- Month_to_Quarter(imports)
+colnames(imports) <- paste0("imports")
+tradebalance <- read.csv("trade_balance.csv")
+tradebalance <- Month_to_Quarter(tradebalance)
+colnames(tradebalance) <- paste0("trade_balance")
+retailtradeandfoodservice <- read.csv("Retail_Trade_and_Food_Services.csv")
+retailtradeandfoodservice <- Month_to_Quarter(retailtradeandfoodservice)
+colnames(retailtradeandfoodservice) <- paste0("retail_tnf_serv")
+retailtrade <- read.csv("Retail_Trade.csv")
+retailtrade <- Month_to_Quarter(retailtrade)
+colnames(retailtrade) <- paste0("retail_trade")
+motorvehicledealer <- read.csv("Motor_Vehicle_Dealer.csv")
+motorvehicledealer <- Month_to_Quarter(motorvehicledealer)
+colnames(motorvehicledealer) <- paste0("motor_dealer")
+autoandother <- read.csv("Auto_and_other_Vehicles.csv")
+autoandother <- Month_to_Quarter(autoandother)
+colnames(autoandother) <- paste0("auto_and_other_veh")
+furnstore <- read.csv("Furniture_Stores.csv")
+furnstore <- Month_to_Quarter(furnstore)
+colnames(furnstore) <- paste0("furn_store")
+electronicstore <- read.csv("Electronics_Stores.csv")
+electronicstore <- Month_to_Quarter(electronicstore)
+colnames(electronicstore) <- paste0("electron_stores")
+buildingmaterial <- read.csv("Building_Materials_Dealers.csv")
+buildingmaterial<- Month_to_Quarter(buildingmaterial)
+colnames(buildingmaterial) <- paste0("building_material")
+foodandbevstores <- read.csv("Food_and_Beverage_Stores.csv")
+foodandbevstores <- Month_to_Quarter(foodandbevstores)
+colnames(foodandbevstores) <- paste0("food_and_bev_store")
+grocery <- read.csv("Grocery_Stores.csv")
+grocery <- Month_to_Quarter(grocery)
+colnames(grocery) <- paste0("groc_stores")
+healthstore <- read.csv("Health_Stores.csv")
+healthstore <- Month_to_Quarter(healthstore)
+colnames(healthstore) <- paste0("health_store")
+gasoline <- read.csv("Gasoline_Stations.csv")
+gasoline <- Month_to_Quarter(gasoline)
+colnames(gasoline) <- paste0("gasoline_stations")
+clothingstores <- read.csv("Clothing_Stores.csv")
+clothingstores <- Month_to_Quarter(clothingstores)
+colnames(clothingstores) <- paste0("cloth_stores")
+sportinggood <- read.csv("SportingGoods_and_Hobby_Stores.csv")
+sportinggood <- Month_to_Quarter(sportinggood)
+colnames(sportinggood) <- paste0("sportinggood_and_hobby_stores")
+merchstores <- read.csv("General_Merchandise_Stores.csv")
+merchstores <- Month_to_Quarter(merchstores)
+colnames(merchstores) <- paste0("Merch_Stores")
+departmstores <- read.csv("Department_Stores.csv")
+departmstores <- Month_to_Quarter(departmstores)
+colnames(departmstores) <- paste0("department_stores")
+miscretailers <- read.csv("Misc_Store_Retailers.csv")
+miscretailers <- Month_to_Quarter(miscretailers)
+colnames(miscretailers) <- paste0("misc_retailers")
+nonstoreretail <- read.csv("Nonstore_Retailers.csv")
+nonstoreretail <- Month_to_Quarter(nonstoreretail)
+colnames(nonstoreretail) <- paste0("nonstore_retail")
+foodservice <- read.csv("Food_Services_Places.csv")
+foodservice <- Month_to_Quarter(foodservice)
+colnames(foodservice) <- paste0("Food_Service")
+constructionspendresidential <- read.csv("Construction_Spending_Residential.csv")
+constructionspendresidential <- Month_to_Quarter(constructionspendresidential)
+colnames(constructionspendresidential) <- paste0("Construction_Spending_Residential")
+constructionspendingnonres <- read.csv("Construction_Spending_Nonresidential.csv")
+constructionspendingnonres <- Month_to_Quarter(constructionspendingnonres)
+colnames(constructionspendingnonres) <- paste0("Construction_Spending_Nonresidential")
+
+## Merge all quartly data into single data set ##
+comptable <- cbind(alcoholsalestax, fuelsalestax,corporateincometax,generalsalestax,indinctax,
+                   proptax,tobsalestax,durincafttax,durstockequity,durtotassets,durtotlia,
+                   nondmanuinc,nondmanustock,nondmanuassets,nondmanulia,homevacrate,homeownrate,
+                   rentalvacrate,durinvmonth,durinvsalemonth,dursalemonth,nondinvmonth,nondinvsalemonth,
+                   nondsalemonth,houspermitconstruct,houseunitcomp,houseunitstart,houseunitconstruct,
+                   salesmonthlyretail,neworders,totalinv,unfulfilledorders,valueofship,forsalecomplete,
+                   forsalemonthinv,forsalenystarted,forsaleunderconstruct,soldcompleted,soldnystarted,
+                   soldunderconstruct,invmonthly,invdsalesratio,salesmonthlymanufact,exports,imports,
+                   tradebalance,retailtradeandfoodservice,retailtrade,motorvehicledealer,autoandother,
+                   furnstore,electronicstore,buildingmaterial,foodandbevstores,grocery,healthstore,
+                   gasoline,clothingstores,sportinggood,merchstores,departmstores,miscretailers,
+                   nonstoreretail,foodservice,constructionspendresidential,constructionspendingnonres)
+
+# write out to disk, include row names, and ommit NaN's
+write.csv(comptable, file = "Macroeconomic Indicators.csv", row.names=TRUE, na="")
