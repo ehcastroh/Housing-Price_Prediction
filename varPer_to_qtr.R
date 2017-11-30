@@ -1,6 +1,6 @@
 ###------------------------------------------------------------------###
 # title: "IEOR 142 Group Project -- All time series to quarterly"
-# author: "Darren Fang"
+# author: "Darren Fang, and Elias Casto Hernandez"
 # date: "November 2017"
 # purpose: Automate time stamp range from various to quarterly
 ###------------------------------------------------------------------###
@@ -54,7 +54,10 @@ Month_to_Quarter <- function(data){
   return(df)
 }
 
-## Read Quartly Raw Data ##
+
+### Read Quarterly Raw Data ----------------------------------------- ###
+
+# Quarterly Summary of State and Local Taxes
 alcoholsalestax <- read.csv("alcohol_sales_tax.csv")
 corporateincometax <- read.csv("corporate_income_tax.csv")
 fuelsalestax <- read.csv("fuel_sales_tax.csv")
@@ -62,6 +65,13 @@ generalsalestax <- read.csv("general_sales_tax.csv")
 indinctax <- read.csv("individual_income_tax.csv")
 proptax <- read.csv("property_taxes.csv")
 tobsalestax <- read.csv("tobacco_sales_tax.csv")
+
+comptable01 <- cbind(alcoholsalestax, fuelsalestax,corporateincometax,
+                   generalsalestax,indinctax,proptax,tobsalestax)
+write.csv(comptable01, file = "Quarterly Summary of State and Local Taxes.csv", row.names=TRUE, na="")
+
+
+# Quarterly Financial Report
 durincafttax <- read.csv("durable_income_afer_taxes.csv")
 durstockequity <- read.csv("durable_stockholders_equity.csv")
 durtotassets <- read.csv("durable_total_assets.csv")
@@ -70,11 +80,27 @@ nondmanuinc <- read.csv("nondurableManufac_income_after_taxes.csv")
 nondmanustock <- read.csv("nondurableManufact_stockholders_equity.csv")
 nondmanuassets <- read.csv("nondurableManufact_tota_assets.csv")
 nondmanulia <- read.csv("nondurableManufact_total_liabilities.csv")
+
+comptable02 <- cbind(durincafttax,durstockequity,durtotassets,durtotlia,
+                   nondmanuinc,nondmanustock,nondmanuassets,nondmanulia)
+write.csv(comptable02, file = "Quarterly Financial Report.csv", row.names=TRUE, na="")
+
+
+# Quarterly Housing Vacancies and Home Ownership
 homevacrate <- read.csv("homeowner_vacancy_rate.csv")
 homeownrate <- read.csv("homeownership_rate.csv")
 rentalvacrate <- read.csv("rental_vacancy_rate.csv")
 
-## Read in and Change Month Data into Quarter Data ##
+comptable03 <- cbind(homevacrate,homeownrate,rentalvacrate)
+write.csv(comptable03, file = "Quarterly Housing Vacancies and Home Ownership.csv", row.names=TRUE, na="")
+### ----------------------------------------------------------------- ###
+
+
+
+
+### Read, change Month Data into Quarter Data, and group per category ###
+
+# Quarterly Wholesale Trade
 durinvmonth <- read.csv("durable_inventory_monthly.csv")
 durinvmonth <- Month_to_Quarter(durinvmonth)
 colnames(durinvmonth) <- paste0("dur_inv_month")
@@ -93,6 +119,13 @@ colnames(nondinvsalemonth) <- paste0("nond_inv_sale_month")
 nondsalemonth <- read.csv("nondurable_sales_monthly.csv")
 nondsalemonth <- Month_to_Quarter(nondsalemonth)
 colnames(nondsalemonth) <- paste0("nond_sale_month")
+
+comptable04 <- cbind(durinvmonth,durinvsalemonth,dursalemonth,
+                   nondinvmonth,nondinvsalemonth,nondsalemonth) 
+write.csv(comptable04, file = "Quarterly Wholesale Trade.csv", row.names=TRUE, na="")
+
+
+# Quarterly New Residential Construction
 houspermitconstruct <- read.csv("housing_permitted_not-yet-under-constuction.csv")
 houspermitconstruct <- Month_to_Quarter(houspermitconstruct)
 colnames(houspermitconstruct) <- paste0("hous_permit_construct")
@@ -105,9 +138,21 @@ colnames(houseunitstart) <- paste0("house_unit_start")
 houseunitconstruct <- read.csv("housing_units_under_construction.csv")
 houseunitconstruct <- Month_to_Quarter(houseunitconstruct)
 colnames(houseunitconstruct) <- paste0("house_unit_construct")
+
+comptable05 <- cbind(houspermitconstruct,houseunitcomp,houseunitstart,houseunitconstruct)
+write.csv(comptable05, file = "Quarterly New Residential Construction.csv", row.names=TRUE, na="")
+
+
+# Quarterly Retail, and Trade and Food Services
 salesmonthlyretail<- read.csv("sales_monthly_retail_and_trade.csv")
 salesmonthlyretail <- Month_to_Quarter(salesmonthlyretail)
 colnames(salesmonthlyretail) <- paste0("sales_monthly_retail")
+
+comptable06 <- cbind(salesmonthlyretail)
+write.csv(comptable06, file = "Quarterly Retail, and Trade and Food Services.csv", row.names=TRUE, na="")
+
+
+# Quarterly Manufacturer's Shipments, Inventories and Orders
 neworders <- read.csv("new_orders.csv")
 neworders <- Month_to_Quarter(neworders)
 colnames(neworders) <- paste0("new_orders")
@@ -120,6 +165,12 @@ colnames(unfulfilledorders) <- paste0("unfulf_orders")
 valueofship <- read.csv("value_of_shipments.csv")
 valueofship <- Month_to_Quarter(valueofship)
 colnames(valueofship) <- paste0("val_of_ship")
+
+comptable07 <- cbind(neworders,totalinv,unfulfilledorders,valueofship)
+write.csv(comptable07, file = "Quarterly Manufacturer's Shipments, Inventories and Orders.csv", row.names=TRUE, na="")
+
+
+# Quarterly New Home Sales
 forsalecomplete <- read.csv("for-sale_completed.csv")
 forsalecomplete <- Month_to_Quarter(forsalecomplete)
 colnames(forsalecomplete) <- paste0("for_sale_comp")
@@ -141,6 +192,13 @@ colnames(soldnystarted) <- paste0("sold_ny_started")
 soldunderconstruct <- read.csv("sold_under_construction.csv")
 soldunderconstruct <- Month_to_Quarter(soldunderconstruct)
 colnames(soldunderconstruct) <- paste0("sold_under_constr")
+
+comptable08 <- cbind(forsalecomplete,forsalemonthinv,forsalenystarted,
+                   forsaleunderconstruct,soldcompleted,soldnystarted,soldunderconstruct)
+write.csv(comptable08, file = "Quarterly New Home Sales.csv", row.names=TRUE, na="")
+
+
+# Quarterly Manufacturing and Trade Inventories and Sales
 invmonthly <- read.csv("inventory_monthly.csv")
 invmonthly<- Month_to_Quarter(invmonthly)
 colnames(invmonthly) <- paste0("inv_monthly")
@@ -150,6 +208,12 @@ colnames(invdsalesratio) <- paste0("inv_dsales_ratio")
 salesmonthlymanufact <- read.csv("sales_monthly_manufact.csv")
 salesmonthlymanufact <- Month_to_Quarter(salesmonthlymanufact)
 colnames(salesmonthlymanufact) <- paste0("sales_month_manufact")
+
+comptable09 <- cbind(invmonthly,invdsalesratio,salesmonthlymanufact)
+write.csv(comptable09, file = "Quarterly Manufacturing and Trade Inventories and Sales.csv", row.names=TRUE, na="")
+
+
+# Quarterly US International Trade
 exports <- read.csv("exports.csv")
 exports <- Month_to_Quarter(exports)
 colnames(exports) <- paste0("exports")
@@ -159,6 +223,12 @@ colnames(imports) <- paste0("imports")
 tradebalance <- read.csv("trade_balance.csv")
 tradebalance <- Month_to_Quarter(tradebalance)
 colnames(tradebalance) <- paste0("trade_balance")
+
+comptable10 <- cbind(exports,imports,tradebalance)
+write.csv(comptable10, file = "Quarterly US International Trade.csv", row.names=TRUE, na="")
+
+
+# Quarterly Advanced Monthly Sales for Retail and Food Services
 retailtradeandfoodservice <- read.csv("Retail_Trade_and_Food_Services.csv")
 retailtradeandfoodservice <- Month_to_Quarter(retailtradeandfoodservice)
 colnames(retailtradeandfoodservice) <- paste0("retail_tnf_serv")
@@ -213,6 +283,16 @@ colnames(nonstoreretail) <- paste0("nonstore_retail")
 foodservice <- read.csv("Food_Services_Places.csv")
 foodservice <- Month_to_Quarter(foodservice)
 colnames(foodservice) <- paste0("Food_Service")
+
+comptable11 <- cbind(retailtradeandfoodservice,retailtrade,motorvehicledealer,autoandother,
+                   furnstore,electronicstore,buildingmaterial,foodandbevstores,grocery,healthstore,
+                   gasoline,clothingstores,sportinggood,merchstores,departmstores,miscretailers,
+                   nonstoreretail,foodservice)
+write.csv(comptable11, file = "Quarterly Advanced Monthly Sales for Retail and Food Services.csv", 
+          row.names=TRUE, na="")
+
+
+# Quartly Construction Spending
 constructionspendresidential <- read.csv("Construction_Spending_Residential.csv")
 constructionspendresidential <- Month_to_Quarter(constructionspendresidential)
 colnames(constructionspendresidential) <- paste0("Construction_Spending_Residential")
@@ -220,19 +300,15 @@ constructionspendingnonres <- read.csv("Construction_Spending_Nonresidential.csv
 constructionspendingnonres <- Month_to_Quarter(constructionspendingnonres)
 colnames(constructionspendingnonres) <- paste0("Construction_Spending_Nonresidential")
 
-## Merge all quartly data into single data set ##
-comptable <- cbind(alcoholsalestax, fuelsalestax,corporateincometax,generalsalestax,indinctax,
-                   proptax,tobsalestax,durincafttax,durstockequity,durtotassets,durtotlia,
-                   nondmanuinc,nondmanustock,nondmanuassets,nondmanulia,homevacrate,homeownrate,
-                   rentalvacrate,durinvmonth,durinvsalemonth,dursalemonth,nondinvmonth,nondinvsalemonth,
-                   nondsalemonth,houspermitconstruct,houseunitcomp,houseunitstart,houseunitconstruct,
-                   salesmonthlyretail,neworders,totalinv,unfulfilledorders,valueofship,forsalecomplete,
-                   forsalemonthinv,forsalenystarted,forsaleunderconstruct,soldcompleted,soldnystarted,
-                   soldunderconstruct,invmonthly,invdsalesratio,salesmonthlymanufact,exports,imports,
-                   tradebalance,retailtradeandfoodservice,retailtrade,motorvehicledealer,autoandother,
-                   furnstore,electronicstore,buildingmaterial,foodandbevstores,grocery,healthstore,
-                   gasoline,clothingstores,sportinggood,merchstores,departmstores,miscretailers,
-                   nonstoreretail,foodservice,constructionspendresidential,constructionspendingnonres)
+comptable12 <- cbind(constructionspendresidential,constructionspendingnonres)
+write.csv(comptable12, file = "Quartly Construction Spending.csv", row.names=TRUE, na="")
+### ----------------------------------------------------------------- ###
+
+
+## Merge all quarterly data into single data set ##
+comptable <- cbind(comptable01, comptable02, comptable03, comptable04,
+                   comptable05, comptable06, comptable07, comptable08,
+                   comptable09, comptable10, comptable11, comptable12)
 
 # write out to disk, include row names, and ommit NaN's
 write.csv(comptable, file = "Macroeconomic Indicators.csv", row.names=TRUE, na="")
